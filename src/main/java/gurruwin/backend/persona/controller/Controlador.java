@@ -12,39 +12,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import gurruwin.backend.centro.Centro;
 import gurruwin.backend.persona.Persona;
 import gurruwin.backend.persona.service.personaService;
 
 @CrossOrigin(origins = "http://localhost:4200") //Referenciamos nuestra URL
 @RestController
-@RequestMapping({"/personas"})
+@RequestMapping({"user"})
 public class Controlador {
 	
 	@Autowired
 	personaService service;
-	
-	@GetMapping
+	//RETORNA TODAS LAS PERSONAS
+	@GetMapping("/userAll")
 	public List<Persona> listarAll(){
-		return service.listar();
+		return service.listarAll();
 	}
 	
-	//DEVOLVER PERSONAS POR CENTRO
+	//RETORNA PERSONA POR CENTRO  ---------
+	@GetMapping("/forCentro")
+	public List<Persona> listarForCentro(@RequestBody Centro centro){
+		return this.service.listarForCentro(centro);
+	} 
 	
-	@GetMapping
-	public List<Persona> listarForCentro(Long id){
-		return null;
+	//RETORNA UNA SOLA PERSONA
+	@GetMapping(path= {"/{id}"})
+	public Persona listarId(@PathVariable("id") int id) {
+		return service.listarForId(id);
 	}
 	
-	@PostMapping
+	//CREA NUEVA PERSONA
+	@PostMapping("/new")
 	public void create(@RequestBody Persona persona) {
 		service.add(persona);
 	}
 	
-	@GetMapping(path= {"/{id}"})
-	public Persona listarId(@PathVariable("id") int id) {
-		return service.listarId(id);
-	}
-	
+	//MODIFICA UNA PERSONA
 	@PutMapping(path= {"/{id}"})
 	public Persona editar(@RequestBody Persona p, @PathVariable("id") int id) {
 		p.setId(id);

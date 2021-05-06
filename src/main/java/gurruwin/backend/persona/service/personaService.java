@@ -2,15 +2,16 @@ package gurruwin.backend.persona.service;
 
 import java.util.List;
 
+import gurruwin.backend.centro.Centro;
 import gurruwin.backend.persona.Persona;
 
 public interface personaService {
 	
-	List<Persona> listar();
+	List<Persona> listarAll(); //No creo que lo use
 	
-	List<Persona> listarAll();
+	List<Persona> listarForCentro(Centro centro);
 	
-	Persona listarId(int id);
+	Persona listarForId(int id);
 	
 	Persona add(Persona p);
 	

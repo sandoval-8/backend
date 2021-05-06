@@ -1,26 +1,36 @@
 package gurruwin.backend.persona;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import gurruwin.backend.centro.Centro;
 
 @Entity
 @Table(name = "personas")
 public class Persona {
-	
+
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private String apellidos;
+
+	@ManyToMany
+	private List<Centro> centro;
+
+//--------------------------------------------------------------------
 
 	public int getId() {
 		return id;
@@ -45,5 +55,13 @@ public class Persona {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-	
+
+	public List<Centro> getCentro() {
+		return centro;
+	}
+
+	public void setCentro(List<Centro> centro) {
+		this.centro = centro;
+	}
+
 }
