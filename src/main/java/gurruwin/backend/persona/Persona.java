@@ -1,25 +1,25 @@
 package gurruwin.backend.persona;
 
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import gurruwin.backend.centro.Centro;
 
 @Entity
 @Table(name = "personas")
-public class Persona {
+public class Persona implements Serializable{
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@Column
 	private String name;
@@ -27,16 +27,19 @@ public class Persona {
 	@Column
 	private String apellidos;
 
-	@ManyToMany
-	private List<Centro> centro;
+/*	@OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
+	private List<Centro> centro = new ArrayList<Centro>(); */
+	
+	@OneToOne
+	private Centro centro;
 
 //--------------------------------------------------------------------
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,12 +59,20 @@ public class Persona {
 		this.apellidos = apellidos;
 	}
 
-	public List<Centro> getCentro() {
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
+/*	public List<Centro> getCentro() {
 		return centro;
 	}
 
 	public void setCentro(List<Centro> centro) {
 		this.centro = centro;
-	}
+	} */
 
 }

@@ -1,10 +1,13 @@
 package gurruwin.backend.centro;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +21,7 @@ import gurruwin.backend.persona.Persona;
 
 @Entity
 @Table(name = "centros")
-public class Centro {
+public class Centro implements Serializable {
 	
 	@Id
 	@Column(name = "id_centro")
@@ -27,14 +30,14 @@ public class Centro {
 	
 	@Column(name = "nombre_centro")
 	private String nombre;
-
+	
+/*	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
-	        name = "centros_personal",
+			name = "centros_personal",
 	        joinColumns = @JoinColumn(name = "centro_id"),
 	        inverseJoinColumns = @JoinColumn(name="personal_id")
-	    )
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Persona> personal;
+	    ) 
+	private List<Persona> personal = new ArrayList<Persona>(); */
 	
 //--------------------------------------------------------------------
 	
@@ -42,6 +45,9 @@ public class Centro {
 		this.id = id;
 	}
 	
+	public Centro() {
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -58,12 +64,12 @@ public class Centro {
 		this.nombre = nombre;
 	}
 
-	public List<Persona> getPersonal() {
+/*	public List<Persona> getPersonal() {
 		return personal;
 	}
 
 	public void setPersonal(List<Persona> personal) {
 		this.personal = personal;
-	}
+	} */
 
 }
